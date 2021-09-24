@@ -224,6 +224,9 @@ class ModelIsotherm:
         # ! root mean square error in fit
         self.rmse = np.nan
 
+        # Print sum of residuals squared
+        self.srs = np.nan
+
         # ! Dictionary of parameters as a starting point for data fitting
         self.param_guess = get_default_guess_params(model, df, pressure_key,
                                                     loading_key)
@@ -327,6 +330,8 @@ class ModelIsotherm:
             self.params[param_names[j]] = opt_res.x[j]
 
         self.rmse = np.sqrt(opt_res.fun / self.df.shape[0])
+
+        self.srs = opt_res.fun
 
     def spreading_pressure(self, pressure):
         """
